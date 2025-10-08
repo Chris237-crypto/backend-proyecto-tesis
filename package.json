@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "vite",
     "server": "node index.js",
-    "start": "npm-run-all --parallel dev server"
+    "start": "npm-run-all --parallel dev server",
+    "build": "echo 'No build step required' && exit 0"  
   }
 }
