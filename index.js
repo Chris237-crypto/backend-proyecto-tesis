@@ -5,7 +5,7 @@ import OpenAI from 'openai';
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173'], // ajusta si usas otro origen
+  origin: ['https://proyectotesis.netlify.app/'], // ajusta si usas otro origen
   methods: ['GET','POST']
 }));
 app.use(express.json());
