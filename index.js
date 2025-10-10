@@ -160,42 +160,8 @@ Da UNA pista muy breve. Ej.: "Empieza con Ssss" o "Da luz y está en el cielo".`
   }
 });
 
-// ========== MATEMÁTICAS: pista para contar ==========
-app.post('/api/math/hint', async (req, res) => {
-  const { targetNumber, options = [] } = req.body || {};
-  console.log('Solicitud /api/math/hint', { targetNumber, options });
-
-  try {
-    const r = await openai.responses.create({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
-      input: [
-        { role: 'system', content: `
-Eres una tutora para niños de 3-4 años.
-Responde en español de Perú, con 1 sola frase muy corta.
-No digas el número exacto; da una ayuda como "Cuenta con tu dedo" o "Mira de uno en uno".
-`},
-        { role: 'user', content: `
-Juego: contar manzanas.
-Número correcto (no lo digas): ${targetNumber}.
-Opciones en pantalla: ${options.join(', ')}.
-Da UNA pista muy breve, amable y sin revelar la respuesta.
-` }
-      ],
-      max_output_tokens: 40
-    });
-
-    res.json({ hint: r.output_text?.trim() || 'Cuenta despacito con tu dedo: uno, dos, tres…' });
-  } catch (e) {
-    console.error('Error /api/math/hint:', e?.code || e?.message || e);
-    // fallback gratis
-    res.json({ hint: 'Cuenta despacito con tu dedo: uno, dos, tres…' });
-  }
-});
-
-
 // ---- Start ----
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`AI server listening on ${port}`);
 });
-
